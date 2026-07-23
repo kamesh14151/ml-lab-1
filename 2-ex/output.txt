@@ -1,0 +1,57 @@
+======================================================================
+  📊 MACHINE LEARNING PIPELINE REPORT: BATTERY LIFE PREDICTION
+======================================================================
+
+[1] EXPLORATORY DATA ANALYSIS
+----------------------------------------------------------------------
+ℹ️  Original Dataset Shape : 13,250 rows × 2 columns
+
+🔍 Data Integrity Check:
+   • Missing Values (Usage_Hours)              : 50
+   • Missing Values (Battery_Remaining_Percent): 50
+   • Duplicate Rows Detected                   : 127
+   • Data Type Alert                           : 'Battery_Remaining_Percent' is 'object' (Fixed)
+
+[2] DATA CLEANING & PREPROCESSING
+----------------------------------------------------------------------
+🔄 Actions Taken: Dropped missing values, removed duplicates, cast types.
+💾 Cleaned Dataset Saved Successfully!
+
+ℹ️  Cleaned Dataset Shape  : 12,935 rows × 2 columns (Dropped: 315 rows)
+
+    Index | Usage_Hours | Battery_Remaining_Percent
+    ------+-------------+--------------------------
+    0     | 6.47        | 44.94
+    1     | 2.39        | 78.99
+    2     | 7.42        | 29.47
+    3     | 1.05        | 82.99
+    4     | 4.33        | 63.79
+
+[3] MODEL TRAINING & PERFORMANCE
+----------------------------------------------------------------------
+📈 Linear Regression Model Metrics:
+
+   • Model Equation : Battery % = (-8.9400 × Usage_Hours) + 99.7127
+   • Slope (Coef)   : -8.940031
+   • Intercept      : 99.712714
+   • R² Score       : 0.973580
+   • Accuracy       : 97.36% ⭐ Excellent Fit
+
+[4] SAMPLE PREDICTIONS
+----------------------------------------------------------------------
+    Idx | Usage Hours | Actual Battery (%) | Predicted Battery (%) | Error
+    ----+-------------+--------------------+-----------------------+-------
+    0   |    3.48     |       69.02        |         68.60         | +0.42
+    1   |    2.58     |       77.20        |         76.65         | +0.55
+    2   |    0.39     |       96.30        |         96.23         | +0.07
+    3   |    8.04     |       25.19        |         27.83         | -2.64
+    4   |    1.56     |       89.95        |         85.77         | +4.18
+    5   |    2.30     |       81.22        |         79.15         | +2.07
+    6   |    6.99     |       38.95        |         37.22         | +1.73
+    7   |    8.54     |       15.70        |         23.36         | -7.66
+    8   |    6.64     |       43.38        |         40.35         | +3.03
+    9   |    2.19     |       81.91        |         80.13         | +1.78
+
+======================================================================
+🎉 EXECUTION COMPLETED SUCCESSFULLY
+======================================================================
