@@ -23,26 +23,34 @@ X_train, X_test, y_train, y_test = train_test_split(
 )
 
 scaler = StandardScaler()
-X_train = scaler.fit_transform(X_train)
-X_test = scaler.transform(X_test)
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
 
 # 3. ASK USER FOR K
 k = int(input("Enter value of k (number of neighbors): "))
 
 knn = KNeighborsClassifier(n_neighbors=k)
-knn.fit(X_train, y_train)
+knn.fit(X_train_scaled, y_train)
 
 # 4. ACCURACY
-y_pred = knn.predict(X_test)
+y_pred = knn.predict(X_test_scaled)
 print(f"\nAccuracy with k={k}: {round(accuracy_score(y_test, y_pred)*100, 2)}%")
 print("\nClassification Report:\n", classification_report(y_test, y_pred))
 
-# 5. ASK USER FOR NEW PERSON'S DATA
+# 5. ASK USER FOR NEW PERSON'S DATA (single pass, with range check)
+bounds = {f: (X[f].min(), X[f].max()) for f in features}
+
 print("\nEnter details of the new person:")
-user_data = [float(input(f"{f}: ")) for f in features]
+user_data = []
+for f in features:
+    val = float(input(f"{f} (typical range {bounds[f][0]}-{bounds[f][1]}): "))
+    if not (bounds[f][0] <= val <= bounds[f][1]):
+        print(f"  ⚠ Warning: {f}={val} is outside the training data range — prediction may be unreliable.")
+    user_data.append(val)
 
 # 6. PREDICT
-new_scaled = scaler.transform([user_data])
+new_df = pd.DataFrame([user_data], columns=features)
+new_scaled = scaler.transform(new_df)
 prediction = knn.predict(new_scaled)
 
 print("\nPredicted Health Risk:", prediction[0])
